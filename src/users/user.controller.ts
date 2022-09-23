@@ -7,6 +7,7 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
+import CreateUserDto from './dtos/create-user.dto';
 import { Student } from './user.entity';
 import { UserService } from './user.service';
 
@@ -20,7 +21,7 @@ export class UserController {
   }
 
   @Post()
-  async create(@Body() body: Student) {
+  async create(@Body() body: CreateUserDto) {
     return this.userService.create(body);
   }
 
@@ -37,5 +38,10 @@ export class UserController {
   @Delete(':id')
   async remove(@Param() params) {
     return this.userService.destroy(params.id);
+  }
+
+  @Get('books/:id')
+  getBooks(@Param() params) {
+    return this.userService.getBooksOfStudent(params.id);
   }
 }

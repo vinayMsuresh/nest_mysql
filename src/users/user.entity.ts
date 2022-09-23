@@ -1,19 +1,20 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import Book from 'src/books/books.entity';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  BaseEntity,
+} from 'typeorm';
 
 @Entity()
-export class Student {
+export class Student extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  first_name: string;
+  name: string;
 
-  @Column()
-  last_name: string;
-
-  @Column()
-  email: string;
-
-  @Column({ default: true })
-  isActive: boolean;
+  @OneToMany((type) => Book, (book) => book.student)
+  books: Book[];
 }
